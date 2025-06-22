@@ -1,1 +1,252 @@
 # Agriculture-
+
+
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>কৃষি বিষয়ক ওয়েবসাইট (Complete)</title>
+<style>
+body { font-family: Arial, sans-serif; background: #e6ffe6; margin:0; padding:0 15px; }
+header { background:#28a745; color:#fff; padding:20px; text-align:center; }
+nav { text-align:center; margin:15px 0; }
+nav button {
+background:#4CAF50; color:#fff; border:none; padding:10px 15px;
+margin:0 5px; border-radius:5px; cursor:pointer; font-size:16px;
+transition: background-color 0.3s;
+}
+nav button:hover { background:#2d7a2d; }
+section {
+background:#fff; padding:20px; max-width:900px; margin:auto;
+border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);
+min-height: 350px;
+}
+footer { text-align:center; margin:30px 0; color:#555; }
+
+table { width:100%; border-collapse: collapse; margin-top:15px; }
+th, td { border:1px solid #ccc; padding:10px; text-align:center; }
+th { background:#c6f0c6; }
+
+input[type=file], input[type=text], textarea {
+margin-top: 10px; width: 100%; padding: 8px; font-size: 15px; border-radius: 4px; border: 1px solid #ccc;
+}
+button.submit-btn, button.print-btn {
+margin-top: 10px; background: #28a745; color: #fff; border: none; padding: 10px;
+border-radius: 5px; cursor: pointer; font-size: 16px;
+}
+button.submit-btn:hover, button.print-btn:hover { background: #1e7e34; }
+
+@media print {
+nav, footer { display: none; }
+body, section { box-shadow: none; margin: 0; padding: 0; }
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>কৃষি বিষয়ক ওয়েবসাইট</h1>
+<p>বাংলাদেশের কৃষি তথ্য ও সেবা</p>
+</header>
+
+<nav>
+<button onclick="showPage('home')">হোম</button>
+<button onclick="showPage('about')">আমাদের সম্পর্কে</button>
+<button onclick="showPage('crops')">ফসল</button>
+<button onclick="showPage('gallery')">গ্যালারি</button>
+<button onclick="showPage('news')">সংবাদ</button>
+<button onclick="showPage('contact')">যোগাযোগ</button>
+<button onclick="showPage('faq')">প্রশ্নোত্তর</button>
+<button onclick="showPage('market')">বাজার দর</button>
+<button onclick="showPage('weather')">আবহাওয়া</button>
+<button onclick="showPage('support')">সহায়তা</button>
+<button class="print-btn" onclick="window.print()">প্রিন্ট / পিডিএফ</button>
+</nav>
+
+<section id="content">
+<!-- Content loads here -->
+</section>
+
+<footer>
+&copy; ২০২৫ কৃষি তথ্য। সর্বস্বত্ব সংরক্ষিত।
+</footer>
+
+<script>
+const pages = {
+home: `
+<h2>হোম</h2>
+<p>কৃষি বিষয়ক ওয়েবসাইটে আপনাকে স্বাগতম। এখানে বাংলাদেশের কৃষি সংক্রান্ত প্রয়োজনীয় তথ্য পাবেন।</p>
+`,
+about: `
+<h2>আমাদের সম্পর্কে</h2>
+<p>আমরা কৃষকদের উন্নয়নে কাজ করি। সঠিক তথ্য ও আধুনিক প্রযুক্তি পৌঁছে দেওয়া আমাদের লক্ষ্য।</p>
+`,
+crops: `
+<h2>ফসলের তথ্য</h2>
+<p>CSV ফাইল থেকে ফসলের তথ্য আপলোড করে দেখতে পারেন অথবা নতুন ফসলের তথ্য যুক্ত করুন।</p>
+<input type="file" id="csvFileInput" accept=".csv" />
+<table>
+<thead>
+<tr><th>ক্রমিক</th><th>ফসলের নাম</th><th>ঋতু</th><th>জমির ধরন</th><th>উৎপাদন (টন)</th></tr>
+</thead>
+<tbody id="cropsTableBody"></tbody>
+</table>
+<h3>নতুন ফসল যোগ করুন</h3>
+<form id="addCropForm">
+<input type="text" id="cropName" placeholder="ফসলের নাম" required />
+<input type="text" id="season" placeholder="ঋতু" required />
+<input type="text" id="soilType" placeholder="জমির ধরন" required />
+<input type="number" id="production" placeholder="উৎপাদন (টন)" required min="0" />
+<button type="submit" class="submit-btn">যোগ করুন</button>
+</form>
+`,
+gallery: `
+<h2>গ্যালারি</h2>
+<p>কৃষি সম্পর্কিত ছবির সংগ্রহ।</p>
+<img src="https://via.placeholder.com/300x180?text=ধান" alt="ধান" style="margin:10px; border-radius:8px;">
+<img src="https://via.placeholder.com/300x180?text=পাট" alt="পাট" style="margin:10px; border-radius:8px;">
+<img src="https://via.placeholder.com/300x180?text=আলু" alt="আলু" style="margin:10px; border-radius:8px;">
+`,
+news: `
+<h2>সংবাদ</h2>
+<ul>
+<li>নতুন কৃষি প্রযুক্তি চালু হয়েছে।</li>
+<li>ধানের বাজার দর বৃদ্ধি পেয়েছে।</li>
+<li>শীতকালে গমের উৎপাদন বৃদ্ধি লক্ষিত হয়েছে।</li>
+</ul>
+`,
+contact: `
+<h2>যোগাযোগ</h2>
+<form id="contactForm">
+<label>নাম:</label>
+<input type="text" id="name" required />
+<label>বার্তা:</label>
+<textarea id="message" rows="5" required></textarea>
+<button type="submit" class="submit-btn">পাঠান</button>
+</form>
+<p id="contactResponse" style="color:green;"></p>
+`,
+faq: `
+<h2>প্রশ্নোত্তর</h2>
+<h3>কীভাবে সঠিক ফসল নির্বাচন করব?</h3>
+<p>আপনার জমির ধরন ও আবহাওয়া অনুযায়ী ফসল নির্বাচন করুন।</p>
+<h3>বাজার দর কোথায় পাবো?</h3>
+<p>বাজার দর পেজ থেকে সর্বশেষ দাম দেখতে পারবেন।</p>
+`,
+market: `
+<h2>বাজার দর</h2>
+<table>
+<thead><tr><th>ফসল</th><th>বর্তমান দাম (টাকা/কেজি)</th></tr></thead>
+<tbody>
+<tr><td>ধান</td><td>৩০</td></tr>
+<tr><td>গম</td><td>৪৫</td></tr>
+<tr><td>আলু</td><td>২০</td></tr>
+<tr><td>পাট</td><td>৫০</td></tr>
+</tbody>
+</table>
+`,
+weather: `
+<h2>আবহাওয়া</h2>
+<p>আজকের আবহাওয়া: বৃষ্টি হতে পারে, তাপমাত্রা ২৭°C - ৩৪°C।</p>
+<p>আগামীকালের পূর্বাভাস স্থানীয় আবহাওয়া সেবা থেকে দেখুন।</p>
+`,
+support: `
+<h2>সহায়তা</h2>
+<p>যেকোনো প্রশ্ন বা সমস্যা হলে আমাদের সাথে যোগাযোগ করুন।</p>
+<ul>
+<li>ইমেইল: shareasobuj9829@gmail.com</li>
+<li>ফোন: +880 1310289829</li>
+</ul>
+`
+};
+
+function saveCropsToStorage(crops) {
+localStorage.setItem('cropsData', JSON.stringify(crops));
+}
+
+function loadCropsFromStorage() {
+const data = localStorage.getItem('cropsData');
+return data ? JSON.parse(data) : [];
+}
+
+function renderCropsTable(crops) {
+const tbody = document.getElementById('cropsTableBody');
+tbody.innerHTML = '';
+crops.forEach((crop, idx) => {
+const tr = document.createElement('tr');
+tr.innerHTML = `
+<td>${idx + 1}</td>
+<td>${crop.name}</td>
+<td>${crop.season}</td>
+<td>${crop.soil}</td>
+<td>${crop.production}</td>
+`;
+tbody.appendChild(tr);
+});
+}
+
+function showPage(page) {
+const contentDiv = document.getElementById('content');
+contentDiv.innerHTML = pages[page] || '<p>পৃষ্ঠা পাওয়া যায়নি।</p>';
+
+if (page === 'crops') {
+let crops = loadCropsFromStorage();
+
+// Render existing crops if any
+setTimeout(() => renderCropsTable(crops), 10);
+
+// Handle CSV upload
+const input = document.getElementById('csvFileInput');
+input.addEventListener('change', e => {
+const file = e.target.files[0];
+if (!file) return;
+const reader = new FileReader();
+reader.onload = e => {
+const lines = e.target.result.trim().split('\n');
+lines.forEach(line => {
+const [name, season, soil, production] = line.split(',');
+if(name && season && soil && production){
+crops.push({name:name.trim(), season:season.trim(), soil:soil.trim(), production:production.trim()});
+}
+});
+saveCropsToStorage(crops);
+renderCropsTable(crops);
+};
+reader.readAsText(file);
+});
+
+// Handle add crop form
+const form = document.getElementById('addCropForm');
+form.addEventListener('submit', e => {
+e.preventDefault();
+const name = document.getElementById('cropName').value.trim();
+const season = document.getElementById('season').value.trim();
+const soil = document.getElementById('soilType').value.trim();
+const production = document.getElementById('production').value.trim();
+if(name && season && soil && production){
+crops.push({name, season, soil, production});
+saveCropsToStorage(crops);
+renderCropsTable(crops);
+form.reset();
+alert('নতুন ফসল যোগ করা হয়েছে।');
+}
+});
+}
+
+if (page === 'contact') {
+const form = document.getElementById('contactForm');
+const response = document.getElementById('contactResponse');
+form.addEventListener('submit', e => {
+e.preventDefault();
+response.textContent = 'আপনার বার্তা সফলভাবে পাঠানো হয়েছে। ধন্যবাদ!';
+form.reset();
+});
+}
+}
+
+// প্রথম পেজ লোড
+showPage('home');
+</script>
+
+</body>
+</html>
